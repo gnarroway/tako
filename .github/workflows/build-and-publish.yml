@@ -16,10 +16,11 @@ jobs:
     - name: Run tests
       run: clojure -A:test
 
-    - name: Package jar
-      uses: DeLaGuardo/setup-clojure@master
+    - uses: DeLaGuardo/setup-clojure@master
       with:
         cli: '1.10.1.697'
+
+    - name: Package jar
       run: clojure -A:depstar -m hf.depstar.jar tako.jar
 
     - name: Publish
