@@ -2,3 +2,4 @@
 .cpcache
 .idea
 tako.iml
+*.DS_STORE
