@@ -23,7 +23,7 @@ Please try it out and raise any issues you may find.
 For tools.deps, add this to your deps.edn:
 
 ```clojure
-{tako {:mvn/version "0.1.0-SNAPSHOT"}}
+{tako/tako {:mvn/version "0.1.0-SNAPSHOT"}}
 ```
 
 For Leinengen, add this to your project.clj:
@@ -76,7 +76,8 @@ The body of your handler might look like:
   {:load-greetings (delay (t/start! (fn [ks] (map #(str "hello, " %) ks))))})
 
 ;; Add loaders to the graohql execution context
-(let [result (g/execute schema query variables {:loaders (create-loaders)})]
+(let [loaders (create-loaders)
+      result (g/execute schema query variables {:loaders loaders})]
   
   ;; Clean up before we return the result
   (doseq [ld loaders]
