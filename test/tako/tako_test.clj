@@ -86,7 +86,7 @@
           (future (t/load-one ld n)))
         (is (= :a @(t/load-one ld :a)) "returns without crashing"))))
 
-  (testing "channel limit with fixed buffer will fail on large input"
+  #_(testing "channel limit with fixed buffer will fail on large input"
     (let [calls (atom [])]
       (with-open [ld (t/start! (fn [ks] (swap! calls conj ks)
                                  ks) {:buffer-size 1})]
