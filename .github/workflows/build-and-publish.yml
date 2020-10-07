@@ -27,4 +27,4 @@ jobs:
       env:
         CLOJARS_USERNAME: ${{ secrets.CLOJARS_USER }}
         CLOJARS_PASSWORD: ${{ secrets.CLOJARS_PASS }}
-      run: cljure -A:deploy
+      run: clojure -A:deploy
