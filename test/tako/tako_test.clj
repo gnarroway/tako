@@ -91,7 +91,7 @@
       (with-open [ld (t/start! (fn [ks] (swap! calls conj ks)
                                  ks) {:buffer-size 1})]
 
-        (is (thrown? Error (do (dotimes [n 10000]
+        (is (thrown? Error (do (dotimes [n 20000]
                                  (future (t/load-one ld n)))
                                @(t/load-one ld :a))))))))
 
