@@ -7,7 +7,7 @@ and is designed to optimise fetching data from remote sources (DBs, APIs) by bat
 requests across independent parts of your system.
 
 There are some other interesting libraries in this space such as the 
-[haxl](https://github.com/facebook/Haxl) inspired [muse](https://github.com/kachayev/muse)
+[haxl](https://github.com/facebook/Haxl) -inspired [muse](https://github.com/kachayev/muse)
 and [urania](https://github.com/funcool/urania). A key difference is that while these
 latter libraries build an AST and optimise the fetching and computation of a complex
 query from a common root, dataloader (and tako) optimise fetching via time-based

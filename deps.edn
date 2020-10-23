@@ -8,7 +8,7 @@
                                                               :sha     "209b64504cb3bd3b99ecfec7937b358a879f55c1"}}
                      :main-opts   ["-m" "cognitect.test-runner"]}
 
-           :cljfmt {:extra-deps {cljfmt {:mvn/version "0.6.6"}}
+           :cljfmt {:extra-deps {cljfmt/cljfmt {:mvn/version "0.6.6"}}
                     :main-opts ["-m" "cljfmt.main"]}
 
            :depstar {:extra-deps {seancorfield/depstar {:mvn/version "1.1.117"}}}
