@@ -81,7 +81,7 @@
   (testing "channel limit default handles large input"
     (let [calls (atom [])]
       (with-open [ld (t/start! (fn [ks] (swap! calls conj ks)
-                                 ks) {:max-batch-time 2000})]
+                                 ks) {:max-batch-time 1000 :max-batch-size 1})]
         (dotimes [n 2000]
           (future (t/load-one ld n)))
         (is (= :a @(t/load-one ld :a)) "returns without crashing"))))
@@ -89,7 +89,7 @@
   (testing "channel limit with small fixed buffer will fail on large input"
     (let [calls (atom [])]
       (with-open [ld (t/start! (fn [ks] (swap! calls conj ks)
-                                 ks) {:max-batch-time 2000 :buffer-size 1})]
+                                 ks) {:max-batch-time 1000 :max-batch-size 1 :buffer-size 1})]
 
         (is (thrown? Error (do (dotimes [n 2000]
                                  (future (t/load-one ld n)))
