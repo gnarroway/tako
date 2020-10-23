@@ -91,7 +91,7 @@
       (with-open [ld (t/start! (fn [ks] (swap! calls conj ks)
                                  ks) {:max-batch-time 1000 :max-batch-size 1 :buffer-size 1})]
 
-        (is (thrown? Error (do (dotimes [n 2000]
+        (is (thrown? Error (do (dotimes [n 3000]
                                  (future (t/load-one ld n)))
                                @(t/load-one ld :a))))))))
 
