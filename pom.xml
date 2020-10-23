@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>tako</groupId>
   <artifactId>tako</artifactId>
-  <version>0.1.0-SNAPSHOT</version>
+  <version>0.1.0-alpha1</version>
   <name>tako</name>
   <developers>
     <developer>
@@ -14,6 +14,7 @@
     <connection>scm:git:git@github.com:gnarroway/tako.git</connection>
     <developerConnection>scm:git:git@github.com:gnarroway/tako.git</developerConnection>
     <url>https://github.com/gnarroway/tako</url>
+    <tag>v0.1.0-alpha1</tag>
   </scm>
   <dependencies>
     <dependency>

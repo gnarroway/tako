@@ -23,13 +23,13 @@ Please try it out and raise any issues you may find.
 For tools.deps, add this to your deps.edn:
 
 ```clojure
-{tako/tako {:mvn/version "0.1.0-SNAPSHOT"}}
+{tako/tako {:mvn/version "0.1.0-alpha1"}}
 ```
 
 For Leinengen, add this to your project.clj:
 
 ```clojure
-[tako "0.1.0-SNAPSHOT"]
+[tako "0.1.0-alpha1"]
 ```
 
 ## Getting started
