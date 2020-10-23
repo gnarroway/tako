@@ -64,7 +64,7 @@
   ([fetch-fn] (start! fetch-fn nil))
   ([fetch-fn opts]
    (let [{:keys [max-batch-size max-batch-time buffer-size]
-          :or {max-batch-size Integer/MAX_VALUE, max-batch-time 5, buffer-size 10000}} opts
+          :or {max-batch-size Integer/MAX_VALUE, max-batch-time 5, buffer-size 1000}} opts
          c-in (chan buffer-size)
          c-batches (chan)
          promises (atom {})
