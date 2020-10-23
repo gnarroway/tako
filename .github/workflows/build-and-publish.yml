@@ -15,16 +15,16 @@ jobs:
 
     - uses: DeLaGuardo/setup-clojure@master
       with:
-        cli: '1.10.1.697'
+        cli: '1.10.1.727'
 
     - name: Run tests
-      run: clojure -A:test
+      run: clojure -M:test
 
     - name: Package jar
-      run: clojure -A:depstar -m hf.depstar.jar tako.jar
+      run: clojure -M:depstar -m hf.depstar.jar tako.jar
 
     - name: Publish
       env:
         CLOJARS_USERNAME: ${{ secrets.CLOJARS_USER }}
         CLOJARS_PASSWORD: ${{ secrets.CLOJARS_PASS }}
-      run: clojure -A:deploy
+      run: clojure -M:deploy
