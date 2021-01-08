@@ -13,6 +13,9 @@ latter libraries build an AST and optimise the fetching and computation of a com
 query from a common root, dataloader (and tako) optimise fetching via time-based
 batching across independent sources (i.e. not a common root).
 
+See also this [juxt blog post](https://juxt.pro/blog/superlifter) on superlifter, which
+does a good job of describing the problem this type of library aims to solve.
+
 ## Status
 
 tako is under active development and may experience breaking changes. 
@@ -97,7 +100,7 @@ all the calls to `load-one` will be collected and dispatched once.
 ## Usage with pedestal
 
 [Pedestal](https://github.com/pedestal/pedestal) is based on interceptors, so we can add the loaders
-and clean them up before they get to the terminal handler.
+before they get to the terminal graphql handler and then clean them up afterwards.
 
 Below is an example combining Pedestal with 
 [lacinia-pedestal](https://github.com/walmartlabs/lacinia-pedestal) that provides some 
