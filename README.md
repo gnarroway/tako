@@ -93,3 +93,52 @@ The body of your handler might look like:
 
 With the above, if we fetch greetings for two or more people anywhere in our GraphQL query,
 all the calls to `load-one` will be collected and dispatched once.
+
+## Usage with pedestal
+
+[Pedestal](https://github.com/pedestal/pedestal) is based on interceptors, so we can add the loaders
+and clean them up before they get to the terminal handler.
+
+Below is an example combining Pedestal with 
+[lacinia-pedestal](https://github.com/walmartlabs/lacinia-pedestal) that provides some 
+ building blocks for convenience (e.g. the graphiql IDE).
+
+```clojure
+; Create an interceptor that adds loaders to the request 
+; and cleans them up after response is generated.
+
+(def attach-loaders 
+  (let [cleanup (fn [context]
+                  (when-let [loaders (get-in context [:request :loaders])]
+                    (doseq [[k ld] @loaders]
+                      (println "closing loader: " k)
+                      (.close @ld)))
+                  context)]
+  {:name ::attach-loaders 
+   :enter (fn [context] (assoc-in context [:request :loaders] (atom (create-loaders))))
+   :leave cleanup
+   :error cleanup}))
+
+
+; Handle the graphql request, passing the loaders into the graphql context
+
+(def graphql-handler [req]
+  (let [{:keys [query variables]} (:json-params req)
+        result (g/execute graphql/schema query variables (select-keys req [:loaders]))]
+  {:status 200 
+   :body result 
+   :headers {}}))
+
+
+; Basic routing for graphql API and IDE, transforming json request and response.
+
+(def routes 
+  (let [asset-path "/assets/graphiql"]
+    (into #{["/graphql" :post [(io.pedestal.http.body-params/body-params)
+                               io.pedestal.http/json-body 
+                               attach-loaders 
+                               `graphql-handler]]
+            ["/graphiql" :get (lp/graphiql-ide-handler {:asset-path asset-path
+                                                        :api-path   "/graphql"}) :route-name :graphiql]}
+          (lp/graphiql-asset-routes asset-path))))
+```
