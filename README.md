@@ -105,7 +105,9 @@ Below is an example combining Pedestal with
 
 ```clojure
 ; Create an interceptor that adds loaders to the request 
-; and cleans them up after response is generated.
+; and cleans them up after response is generated. Passing them 
+; in as an atom allows extra loaders to be added at run time (i.e. 
+; during query execution) and still be cleaned up here.
 
 (def attach-loaders 
   (let [cleanup (fn [context]
