@@ -18,27 +18,27 @@
               t (timeout max-time)]
       (let [[v p] (alts! [in t])]
         (cond
-                 ;; timed out, so process what we got
+          ;; timed out, so process what we got
           (= p t)
           (do
             (when (seq buf)
               (>! out buf))
             (recur [] (timeout max-time)))
 
-                 ;; `in` is closed, so process what we got
+          ;; `in` is closed, so process what we got
           (nil? v)
           (do
             (when (seq buf)
               (>! out buf))
             (close! out))
 
-                 ;; we will fill up the batch, so process it
+          ;; we will fill up the batch, so process it
           (== lim-1 (count buf))
           (do
             (>! out (conj buf v))
             (recur [] (timeout max-time)))
 
-                 ;; accumulate the buffer
+          ;; accumulate the buffer
           :else
           (recur (conj buf v) t))))))
 
@@ -64,7 +64,7 @@
   ([fetch-fn] (start! fetch-fn nil))
   ([fetch-fn opts]
    (let [{:keys [max-batch-size max-batch-time buffer-size]
-          :or {max-batch-size Integer/MAX_VALUE, max-batch-time 5, buffer-size 1000}} opts
+          :or   {max-batch-size Integer/MAX_VALUE, max-batch-time 5, buffer-size 1000}} opts
          c-in (chan buffer-size)
          c-batches (chan)
          promises (atom {})
@@ -76,7 +76,7 @@
              ps @promises]
 
          (cond
-                  ;; got a batch to process
+           ;; got a batch to process
            (seq ids)
            (do
              (log/debug "processing id" ids)
@@ -86,19 +86,19 @@
                            e))]
                (if (instance? Exception res)
                  (doseq [k ids]
-                          ;; Deliver the exception but clear the cache
+                   ;; Deliver the exception but clear the cache
                    (deliver (get ps k) res)
                    (swap! promises dissoc k))
                  (doseq [[k v] (zipmap ids res)]
-                          ;; Deliver the value
+                   ;; Deliver the value
                    (deliver (get ps k) v))))
              (recur))
 
-                  ;; chan is closed
+           ;; chan is closed
            (nil? ids)
            (log/debug "c-batches closed")
 
-                  ;; keep listening
+           ;; keep listening
            :else
            (recur))))
 
@@ -176,7 +176,8 @@
   (stop! loader)
 
   (with-open [ld (start! batch-fn {})]
-    (println) (deref (load-many ld ["alice" "bob"])))
+    (doto (deref (load-many ld ["alice" "bob"]))
+      println))
 
   (with-open [ld (start! batch-fn {})]
-    (println (deref (load-one ld "clair")))))
+    (deref (load-one ld "clair"))))

@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+clojure -M:cljfmt fix src test "$@"
