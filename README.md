@@ -1,5 +1,7 @@
 # tako
 
+[![Clojars Project](https://img.shields.io/clojars/v/tako.svg)](https://clojars.org/tako)
+
 A Clojure library for efficient data access using batching and caching.
 
 tako is largely inspired by [graphql/dataloader](https://github.com/graphql/dataloader) 
