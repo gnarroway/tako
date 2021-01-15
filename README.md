@@ -124,7 +124,7 @@ Below is an example combining Pedestal with
   {:name ::attach-loaders 
    :enter (fn [context] (assoc-in context [:request :loaders] (atom (create-loaders))))
    :leave cleanup
-   :error cleanup}))
+   :error (fn [context _] (cleanup context))}))
 
 
 ; Handle the graphql request, passing the loaders into the graphql context
